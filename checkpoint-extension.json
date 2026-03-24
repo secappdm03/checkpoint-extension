@@ -1,9 +1,0 @@
-{
-  "name": "Appliance Info Viewer",
-  "version": "1.0.0",
-  "description": "Shows important appliance information and current security policies",
-  "author": "Your Name",
-  "main": "appliance-info.js",
-  "permissions": ["query", "getContextObject"],
-  "categories": ["gateways", "monitoring"]
-}
