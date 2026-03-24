@@ -5,9 +5,6 @@
   "description": "Extensión de ejemplo para SmartConsole R82.10",
   "author": "secappdm03",
   "provider": "secappdm03",
-  "icons": {
-    "128": "icon.png"
-  },
   "permissions": [
     "read-session",
     "write-session"
