@@ -7,19 +7,13 @@
       "minimum-version": "1.3"
     }
   },
-  "client-extensions-api": {
-    "version": "1.3"
-  },
-  "management-server-api": {
-    "version": "1.3"
-  },
   "locations": [
     {
       "location": "details-pane",
-      "relevant-types": ["gateway", "checkpoint-host"],
+      "relevant-types": ["gateway"],
       "ui-element": {
         "type": "tab",
-        "caption": "Mi Info",
+        "caption": "Mi Pestaña",
         "action": {
           "url": "myTab.html"
         }
