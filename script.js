@@ -1,30 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Mi Extensión</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
-        }
-        h1 {
-            color: #2c3e50;
-            font-size: 18px;
-        }
-        #info {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            padding: 15px;
-            border-radius: 4px;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Información personalizada</h1>
-    <div id="info">Cargando datos...</div>
+// Esperar a que el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    const infoDiv = document.getElementById('info');
 
-    <script src="script.js"></script>
-</body>
-</html>
+    // Verificar si estamos dentro de SmartConsole
+    if (typeof smartConsole === 'undefined') {
+        infoDiv.innerText = 'Esta extensión solo funciona dentro de SmartConsole.';
+        return;
+    }
+
+    // Obtener el objeto actual (el que el usuario tiene seleccionado)
+    smartConsole.getCurrentObject()
+        .then(obj => {
+            if (obj) {
+                infoDiv.innerHTML = `
+                    <p><strong>Nombre:</strong> ${obj.name || 'N/A'}</p>
+                    <p><strong>UID:</strong> ${obj.uid || 'N/A'}</p>
+                    <p><strong>Tipo:</strong> ${obj.type || 'N/A'}</p>
+                `;
+            } else {
+                infoDiv.innerText = 'No se pudo obtener el objeto actual.';
+            }
+        })
+        .catch(err => {
+            console.error('Error al obtener el objeto:', err);
+            infoDiv.innerText = 'Error al cargar los datos. Revisa la consola.';
+        });
+});
