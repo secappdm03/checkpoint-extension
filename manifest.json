@@ -1,17 +1,16 @@
 {
   "manifest_version": 1.3,
-  "name": "Mi Extensión",
+  "name": "Mi Extension",
   "version": "1.0.0",
-  "description": "Extensión de ejemplo para SmartConsole R82.10",
+  "description": "Ejemplo de extension para SmartConsole R82.10",
   "author": "secappdm03",
   "provider": "secappdm03",
   "permissions": [
-    "read-session",
-    "write-session"
+    "read-session"
   ],
   "extension_points": [
     {
-      "id": "my-custom-tab",
+      "id": "mi-pestana-unica",
       "type": "tab",
       "location": "object-view",
       "title": "Mi Pestaña",
