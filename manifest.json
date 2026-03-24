@@ -2,10 +2,7 @@
   "extension": {
     "name": "Mi Extension",
     "version": "1.0.0",
-    "description": "Ejemplo de extension para SmartConsole R82.10",
-    "author": "secappdm03",
     "provider": "secappdm03",
-    "license": "MIT",
     "extension-version-requirements": {
       "minimum-version": "1.3"
     }
@@ -18,21 +15,18 @@
   },
   "locations": [
     {
-      "location": "tab",
-      "relevant-types": ["gateway", "checkpoint-host", "network", "host"],
+      "location": "details-pane",
+      "relevant-types": ["gateway", "checkpoint-host"],
       "ui-element": {
         "type": "tab",
-        "caption": "Mi Pestaña",
-        "tooltip": "Información personalizada",
+        "caption": "Mi Info",
         "action": {
-          "url": "myTab.html",
-          "details-level": "full",
-          "method": "get"
+          "url": "myTab.html"
         }
       }
     }
   ],
   "requested-permissions": {
-    "client": ["get-read-only-session", "run-read-only-commands"]
+    "client": ["get-read-only-session"]
   }
 }
