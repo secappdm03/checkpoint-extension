@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Appliance Information Viewer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .info-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .info-card h2 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .policy-status {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 12px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .cli-command {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 8px 0;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-card">
+            <h2>📡 Gateway Information</h2>
+            <div id="gateway-info" class="loading">Loading gateway information...</div>
+        </div>
+        
+        <div class="info-card">
+            <h2>🔒 Policy Packages</h2>
+            <div id="policy-info" class="loading">Loading policy information...</div>
+        </div>
+        
+        <div class="info-card">
+            <h2>💻 CLI Commands for Installed Policy</h2>
+            <p>To see which policy is <strong>installed</strong> on the gateway, run these commands directly on the appliance:</p>
+            <div class="cli-command">fw stat</div>
+            <div class="cli-command">cphaprob stat</div>
+            <div class="cli-command">show version all</div>
+            <p><small>Note: The Management API shows available policy packages, not which one is currently installed on a specific gateway.</small></p>
+        </div>
+        
+        <button id="refresh-btn">⟳ Refresh</button>
+    </div>
+    
+    <script src="appliance-info.js"></script>
+</body>
+</html>
