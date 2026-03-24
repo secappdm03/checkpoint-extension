@@ -1,0 +1,24 @@
+{
+  "name": "Mi Extensión",
+  "version": "1.0.0",
+  "description": "Ejemplo de extensión para SmartConsole",
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "main": "index.html",
+  "permissions": [
+    "read-session",
+    "write-session",
+    "access-check-point-api"
+  ],
+  "icons": {
+    "128": "icon.png"
+  },
+  "extension-points": [
+    {
+      "type": "tab",
+      "location": "object-view",
+      "title": "Mi Pestaña",
+      "view": "myTab.html"
+    }
+  ]
+}
