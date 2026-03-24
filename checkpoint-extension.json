@@ -5,6 +5,5 @@
   "author": "Your Name",
   "main": "appliance-info.js",
   "permissions": ["query", "getContextObject"],
-  "icon": "icon.png",
   "categories": ["gateways", "monitoring"]
 }
