@@ -1,0 +1,10 @@
+{
+  "name": "Mi Panel de Tareas VPN",
+  "version": "1.0",
+  "description": "Pestaña personalizada para gestionar tareas de VPN",
+  "author": "Ingeniero Colombiano",
+  "type": "tab",
+  "target": "gateway",
+  "url": "https://secappdm03.github.io/checkpoint-extension/index.html",
+  "icon": "https://secappdm03.github.io/checkpoint-extension/icon.png"
+}
