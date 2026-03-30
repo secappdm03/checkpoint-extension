@@ -5,6 +5,6 @@
   "author": "Tu Nombre",
   "type": "tab",
   "target": "gateway",
-  "url": "http://tu-servidor/mi-extension.html",
+  "url": "https://secappdm03.github.io/checkpoint-extension/",
   "icon": "https://tu-servidor/icon.png"
 }
