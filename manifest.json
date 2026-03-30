@@ -1,26 +1,10 @@
 {
-  "extension": {
-    "name": "Mi Extension",
-    "version": "1.0.0",
-    "provider": "secappdm03",
-    "extension-version-requirements": {
-      "minimum-version": "1.3"
-    }
-  },
-  "locations": [
-    {
-      "location": "details-pane",
-      "relevant-types": ["gateway"],
-      "ui-element": {
-        "type": "tab",
-        "caption": "Mi Pestaña",
-        "action": {
-          "url": "myTab.html"
-        }
-      }
-    }
-  ],
-  "requested-permissions": {
-    "client": ["get-read-only-session"]
-  }
+  "name": "Mi Panel Personalizado",
+  "version": "1.0",
+  "description": "Mi primera extensión para SmartConsole",
+  "author": "Tu Nombre",
+  "type": "tab",
+  "target": "gateway",
+  "url": "http://tu-servidor/mi-extension.html",
+  "icon": "https://tu-servidor/icon.png"
 }
