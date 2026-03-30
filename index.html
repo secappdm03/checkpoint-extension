@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Panel VPN</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        .info {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-top: 15px;
+        }
+        .status {
+            margin-top: 10px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🎩 Tareas VPN</h2>
+        <p>Herramientas para gestionar la comunidad VPN desde SmartConsole</p>
+        <button id="runActionBtn">Ejecutar Acción Personalizada</button>
+        <div id="result" class="info">Esperando acción...</div>
+        <div class="status" id="gatewayInfo"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        let interactions = null;
+        let currentGateway = null;
+
+        // Cargar la librería oficial de SmartConsole
+        function loadInteractionsLibrary() {
+            return new Promise((resolve, reject) => {
+                if (typeof SmartConsoleInteractions !== 'undefined') {
+                    interactions = new SmartConsoleInteractions();
+                    resolve();
+                } else {
+                    const script = document.createElement('script');
+                    script.src = 'https://sc1.checkpoint.com/documents/SmartConsole/Extensions/smart-console-interactions.js';
+                    script.onload = () => {
+                        interactions = new SmartConsoleInteractions();
+                        resolve();
+                    };
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                }
+            });
+        }
+
+        // Obtener el gateway actualmente seleccionado en SmartConsole
+        async function getCurrentGateway() {
+            if (!interactions) return null;
+            try {
+                const context = await interactions.getContextObject();
+                return context; // contiene name, uid, type, etc.
+            } catch (err) {
+                console.error('Error getting context:', err);
+                return null;
+            }
+        }
+
+        // Mostrar información del gateway en la interfaz
+        async function updateGatewayInfo() {
+            const gatewayDiv = document.getElementById('gatewayInfo');
+            if (!interactions) {
+                gatewayDiv.innerHTML = '❌ No se pudo conectar con SmartConsole.';
+                return;
+            }
+            const gateway = await getCurrentGateway();
+            if (gateway) {
+                currentGateway = gateway;
+                gatewayDiv.innerHTML = `📡 Gateway seleccionado: <strong>${gateway.name}</strong> (${gateway.type})`;
+            } else {
+                gatewayDiv.innerHTML = '⚠️ No hay un gateway seleccionado.';
+                currentGateway = null;
+            }
+        }
+
+        // Acción personalizada: ejecuta un comando mgmt_cli (ejemplo)
+        async function executeCustomAction() {
+            const resultDiv = document.getElementById('result');
+            if (!currentGateway) {
+                resultDiv.innerHTML = '❌ Primero selecciona un gateway en SmartConsole.';
+                return;
+            }
+
+            resultDiv.innerHTML = '⏳ Ejecutando acción...';
+
+            try {
+                // Aquí puedes ejecutar cualquier comando mgmt_cli
+                const query = `show simple-gateway name "${currentGateway.name}"`;
+                const response = await interactions.query(query);
+                resultDiv.innerHTML = `<strong>✅ Comando ejecutado</strong><br><pre>${JSON.stringify(response, null, 2)}</pre>`;
+            } catch (err) {
+                resultDiv.innerHTML = `❌ Error: ${err.message}`;
+            }
+        }
+
+        // Inicializar cuando la página esté lista
+        window.onload = async () => {
+            try {
+                await loadInteractionsLibrary();
+                await updateGatewayInfo();
+                document.getElementById('runActionBtn').addEventListener('click', executeCustomAction);
+            } catch (err) {
+                console.error('Failed to load interactions library:', err);
+                document.getElementById('gatewayInfo').innerHTML = '❌ Error: No se pudo cargar la librería de SmartConsole. Asegúrate de que la extensión se está ejecutando dentro de SmartConsole.';
+            }
+        };
+    </script>
+</body>
+</html>
